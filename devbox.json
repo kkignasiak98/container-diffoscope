@@ -12,9 +12,11 @@
       "exec zsh"
     ],
     "scripts": {
-      "test": [
-        "echo \"Error: no test specified\" && exit 1"
-      ]
+      "format_python" : "ruff format",
+      "lint_python" : "ruff check  --output-file diagnostics/static_code_analysis.md",
+      "type_check_python" : "pyright --outputjson | tee diagnostics/type_validation_report.json",
+      "sync_dependencies": "poetry install --with dev --sync",
+      "build_package": "poetry build"
     }
   }
 }
