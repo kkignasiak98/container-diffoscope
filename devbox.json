@@ -5,18 +5,19 @@
     "poetry@1.8.4",
     "zsh@5.9",
     "docker@29.1.2",
-    "git-lfs@3.7.1"
+    "git-lfs@3.7.1",
+    "hadolint@2.12.0"
   ],
   "shell": {
     "init_hook": [
       "exec zsh"
     ],
     "scripts": {
-      "format_python" : "ruff format",
-      "lint_python" : "ruff check  --output-file diagnostics/static_code_analysis.md",
-      "type_check_python" : "pyright --outputjson | tee diagnostics/type_validation_report.json",
+      "format_python":     "ruff format",
+      "lint_python":       "ruff check  --output-file diagnostics/static_code_analysis.md",
+      "type_check_python": "pyright --outputjson | tee diagnostics/type_validation_report.json",
       "sync_dependencies": "poetry install --with dev --sync",
-      "build_package": "poetry build"
+      "build_package":     "poetry build"
     }
   }
 }

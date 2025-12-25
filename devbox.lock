@@ -101,6 +101,58 @@
       "last_modified": "2025-12-21T10:48:17Z",
       "resolved": "github:NixOS/nixpkgs/306ea70f9eb0fb4e040f8540e2deab32ed7e2055?lastModified=1766314097&narHash=sha256-laJftWbghBehazn%2FzxVJ8NdENVgjccsWAdAqKXhErrM%3D"
     },
+    "hadolint@2.12.0": {
+      "last_modified": "2025-09-18T16:33:27Z",
+      "resolved": "github:NixOS/nixpkgs/f4b140d5b253f5e2a1ff4e5506edbf8267724bde#hadolint",
+      "source": "devbox-search",
+      "version": "2.12.0",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/k17xx5cpg0iy4vrndd0hrvla9vajzwkj-hadolint-2.12.0",
+              "default": true
+            },
+            {
+              "name": "doc",
+              "path": "/nix/store/xb64bdhry5hzfgc9g1grh7r1krlqh19i-hadolint-2.12.0-doc"
+            }
+          ],
+          "store_path": "/nix/store/k17xx5cpg0iy4vrndd0hrvla9vajzwkj-hadolint-2.12.0"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/apghjax31m509sb2iwq24cqli2xl2x82-hadolint-2.12.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/apghjax31m509sb2iwq24cqli2xl2x82-hadolint-2.12.0"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/rfciwvxankz7px4kb7h5h5gr4sgc2n0j-hadolint-2.12.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/rfciwvxankz7px4kb7h5h5gr4sgc2n0j-hadolint-2.12.0"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/4x0ax6lbrq9bq2n2hw4lbjhmbfv39kbp-hadolint-2.12.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/4x0ax6lbrq9bq2n2hw4lbjhmbfv39kbp-hadolint-2.12.0"
+        }
+      }
+    },
     "poetry@1.8.4": {
       "last_modified": "2024-12-03T12:40:06Z",
       "plugin_version": "0.0.4",
