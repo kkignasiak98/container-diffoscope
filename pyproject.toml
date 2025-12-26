@@ -6,6 +6,9 @@ authors = ["Krzysztof Ignasiak <141998545+kkignasiak98@users.noreply.github.com>
 readme = "README.md"
 packages = [{ include = "container_diffoscope" }]
 
+[tool.poetry.scripts]
+container-diffoscope = "container_diffoscope.main:main"
+
 [tool.poetry.dependencies]
 python = "^3.12"
 typer = "0.15.2"
