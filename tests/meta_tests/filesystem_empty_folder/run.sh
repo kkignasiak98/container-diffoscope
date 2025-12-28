@@ -1,0 +1,1 @@
+just test "$(pwd)" filesystem
