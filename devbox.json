@@ -18,7 +18,8 @@
       "type_check_python": "pyright --outputjson | tee diagnostics/type_validation_report.json",
       "sync_dependencies": "poetry install --with dev --sync",
       "build_package":     "poetry build",
-      "unit_tests":        "poetry run pytest tests/unit_tests -v"
+      "unit_tests":        "poetry run pytest tests/unit_tests -v",
+      "meta_tests":        "bash run_meta_test.sh '/workspaces/container-diffoscope/tests/meta_tests/filesystem_empty_file' "
     }
   }
 }

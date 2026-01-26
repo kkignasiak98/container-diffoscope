@@ -7,8 +7,9 @@
 		"dockerfile": "../Dockerfile"
 	},
 	
-	"features": {
-	},
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+  },
 
 	
 	"postCreateCommand":  ". /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh",
