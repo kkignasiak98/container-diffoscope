@@ -1,85 +1,224 @@
-# DockFS-Diff
+<div align="center">
 
-A powerful Docker filesystem comparison tool that analyzes differences between two Docker images at the file level.
+# 🐋 Container Diffoscope
 
-**Source code**: `source_code/filesystem_comparison.py`
+<img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/palette/macchiato.png" width="600"/>
 
-## Overview
+### *Elegant Docker filesystem comparison, brewed with care* ☕
 
-DockFS-Diff compares the filesystems of two Docker images by:
-1. Exporting each image's filesystem to tar archives
-2. Generating SHA256 hash lists for all files
-3. Categorizing files as identical, modified, or unique to each image
-4. Creating detailed comparisons for modified files using diffoscope
+[![Catppuccin](https://img.shields.io/badge/Catppuccin-Macchiato-f5bde6?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI2NCIgaGVpZ2h0PSI2NCIgdmlld0JveD0iMCAwIDY0IDY0Ij48cGF0aCBmaWxsPSIjZjViZGU2IiBkPSJNMzIgNEMxNi41MzYgNCA0IDE2LjUzNiA0IDMyYzAgMTUuNDY0IDEyLjUzNiAyOCAyOCAyOHMyOC0xMi41MzYgMjgtMjhDNjAgMTYuNTM2IDQ3LjQ2NCA0IDMyIDR6Ii8+PC9zdmc+)](https://github.com/catppuccin)
+[![Python](https://img.shields.io/badge/Python-3.10+-a6da95?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
+[![Docker](https://img.shields.io/badge/Docker-Required-8aadf4?style=for-the-badge&logo=docker&logoColor=white)](https://docker.com)
+[![License](https://img.shields.io/badge/License-MIT-f5a97f?style=for-the-badge)](LICENSE)
 
-## Features
+---
 
-- **Complete Filesystem Analysis**: Exports and analyzes entire Docker image filesystems
-- **Hash-based Comparison**: Uses SHA256 hashes to detect file changes accurately
-- **Detailed Diff Reports**: Generates markdown reports showing exact differences between modified files
-- **Smart Thresholds**: Configurable limits for when to generate detailed comparisons vs. summary lists
-- **Automatic Cleanup**: Removes temporary files after analysis
+*A powerful Docker filesystem comparison tool that analyzes differences between two Docker images at the file level.*
 
-## Usage
+</div>
+
+---
+
+## 🌸 Overview
+
+**Container Diffoscope** compares the filesystems of two Docker images through an elegant pipeline:
+
+| Step | Description |
+|:----:|-------------|
+| 🗃️ | **Export** each image's filesystem to tar archives |
+| 🔐 | **Generate** SHA256 hash lists for all files |
+| 📊 | **Categorize** files as identical, modified, or unique |
+| 🔍 | **Create** detailed comparisons using diffoscope |
+
+---
+
+## ✨ Features
+
+<table>
+<tr>
+<td width="50%">
+
+### 🎯 Core Capabilities
+
+- 📦 **Complete Filesystem Analysis**
+  > Exports and analyzes entire Docker image filesystems
+
+- 🔒 **Hash-based Comparison**
+  > Uses SHA256 hashes for accurate change detection
+
+- 📝 **Detailed Diff Reports**
+  > Markdown reports with exact file differences
+
+</td>
+<td width="50%">
+
+### 🛠️ Smart Features
+
+- ⚡ **Configurable Thresholds**
+  > Smart limits for detailed vs. summary comparisons
+
+- 🧹 **Automatic Cleanup**
+  > Removes temporary files after analysis
+
+- 🎨 **Beautiful Output**
+  > Clean, readable markdown reports
+
+</td>
+</tr>
+</table>
+
+---
+
+## 🚀 Usage
 
 ```bash
-python filesystem_comparison.py <image_1> <image_2> [--output-dir OUTPUT_DIR]
+# Basic usage
+python -m container_diffoscope <image_1> <image_2>
+
+# With custom output directory
+python -m container_diffoscope <image_1> <image_2> --output-dir OUTPUT_DIR
 ```
 
-### Parameters
+### 📋 Parameters
 
-- `image_1`: Name or ID of the first Docker image
-- `image_2`: Name or ID of the second Docker image
-- `--output-dir`: Output directory for comparison results (default: "temp_results")
+| Parameter | Description | Default |
+|-----------|-------------|---------|
+| `image_1` | Name or ID of the first Docker image | *required* |
+| `image_2` | Name or ID of the second Docker image | *required* |
+| `--output-dir` | Output directory for comparison results | `temp_results` |
 
-### Example
+### 💡 Example
 
 ```bash
-python filesystem_comparison.py ubuntu:20.04 ubuntu:22.04 --output-dir comparison_results
+# Compare Ubuntu versions
+python -m container_diffoscope ubuntu:20.04 ubuntu:22.04 --output-dir comparison_results
 ```
 
-## Output
+---
 
-The tool provides:
+## 📤 Output
 
-1. **Summary Statistics**: Count of identical, modified, and unique files
-2. **File Lists**: Lists of files unique to each image (if under threshold)
-3. **Detailed Comparisons**: Markdown files with side-by-side diffs for modified files
+<details>
+<summary><b>🔹 Summary Statistics</b></summary>
 
-## Configuration
+> Count of identical, modified, and unique files across both images
 
-- `NEW_FILE_PRINT_THRESHOLD = 20`: Maximum number of new files to list individually
-- `UPDATED_FILE_TRESHOLD = 15`: Maximum number of changed files to analyze in detail
+</details>
 
-## Dependencies
+<details>
+<summary><b>🔹 File Lists</b></summary>
 
-- Docker (for image export)
-- Python packages: polars, typer
-- diffoscope (for detailed file comparisons)
-- tar, sha256sum (system utilities)
+> Lists of files unique to each image (if under threshold)
 
-## How It Works
+</details>
 
-1. **Export Phase**: Creates temporary containers and exports filesystems as tar archives
-2. **Hashing Phase**: Extracts files and generates SHA256 hash lists
-3. **Analysis Phase**: Compares hash lists to categorize file differences
-4. **Comparison Phase**: Uses diffoscope to generate detailed diffs for modified files
-5. **Cleanup Phase**: Removes all temporary files and containers
+<details>
+<summary><b>🔹 Detailed Comparisons</b></summary>
 
-## File Categories
+> Markdown files with side-by-side diffs for modified files
 
-- **Common Files**: Identical files present in both images (same path and hash)
-- **Modified Files**: Files present in both images but with different content
-- **Unique Files**: Files present in only one of the images
+</details>
 
-## Cache Structure
+---
+
+## ⚙️ Configuration
+
+| Variable | Value | Description |
+|----------|:-----:|-------------|
+| `NEW_FILE_PRINT_THRESHOLD` | `20` | Maximum new files to list individually |
+| `UPDATED_FILE_THRESHOLD` | `15` | Maximum changed files to analyze in detail |
+
+---
+
+## 📦 Dependencies
+
+<table>
+<tr>
+<td>
+
+**🐳 System**
+- Docker
+- tar
+- sha256sum
+
+</td>
+<td>
+
+**🐍 Python**
+- polars
+- typer
+
+</td>
+<td>
+
+**🔧 Tools**
+- diffoscope
+
+</td>
+</tr>
+</table>
+
+---
+
+## 🔄 How It Works
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                                                                 │
+│   📥 Export    →    🔐 Hash    →    📊 Analyze    →    🔍 Compare    →    🧹 Clean
+│                                                                 │
+│   Create temp       Generate        Compare hash      Generate        Remove
+│   containers &      SHA256          lists to find     detailed        all temp
+│   export to tar     hash lists      differences       diff reports    files
+│                                                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 📁 File Categories
+
+| Category | Icon | Description |
+|----------|:----:|-------------|
+| **Common** | 🟢 | Identical files in both images (same path & hash) |
+| **Modified** | 🟡 | Files in both images with different content |
+| **Unique** | 🔵 | Files present in only one image |
+
+---
+
+## 🗂️ Cache Structure
 
 ```
 cache/
-├── image1.tar          # Exported filesystem
-├── image2.tar          # Exported filesystem
-├── image1_list.txt     # Hash and path list
-├── image2_list.txt     # Hash and path list
-├── image1/             # Extracted files for comparison
-└── image2/             # Extracted files for comparison
+│
+├── 📦 image1.tar           # Exported filesystem
+├── 📦 image2.tar           # Exported filesystem
+│
+├── 📋 image1_list.txt      # Hash and path list
+├── 📋 image2_list.txt      # Hash and path list
+│
+├── 📂 image1/              # Extracted files for comparison
+└── 📂 image2/              # Extracted files for comparison
 ```
+
+---
+
+<div align="center">
+
+### 🌈 Color Palette
+
+*Inspired by [Catppuccin Macchiato](https://github.com/catppuccin/catppuccin)*
+
+| | Rosewater | Flamingo | Pink | Mauve | Red | Maroon | Peach | Yellow |
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| | `#f4dbd6` | `#f0c6c6` | `#f5bde6` | `#c6a0f6` | `#ed8796` | `#ee99a0` | `#f5a97f` | `#eed49f` |
+
+| | Green | Teal | Sky | Sapphire | Blue | Lavender | Text | Base |
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+| | `#a6da95` | `#8bd5ca` | `#91d7e3` | `#7dc4e4` | `#8aadf4` | `#b7bdf8` | `#cad3f5` | `#24273a` |
+
+---
+
+Made with 💜 and lots of ☕
+
+</div>
