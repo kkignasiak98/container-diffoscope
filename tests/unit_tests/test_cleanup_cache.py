@@ -1,6 +1,6 @@
 import os
 import pytest
-from filesystem_comparison import cleanup_cache
+from container_diffoscope.main import __cleanup_cache
 
 
 @pytest.fixture
@@ -21,11 +21,11 @@ def temp_cache_dir(tmp_path):
 def test_cleanup_cache_existing_directory(temp_cache_dir):
     """Test cleanup of an existing cache directory."""
     assert os.path.exists(temp_cache_dir)
-    cleanup_cache(temp_cache_dir)
+    __cleanup_cache(temp_cache_dir)
     assert not os.path.exists(temp_cache_dir)
 
 
 def test_cleanup_cache_nonexistent_directory():
     """Test cleanup_cache with a non-existent directory."""
     non_existent_dir = "/tmp/nonexistent_dir_12345"
-    cleanup_cache(non_existent_dir)  # Should not raise any exception
+    __cleanup_cache(non_existent_dir)  # Should not raise any exception

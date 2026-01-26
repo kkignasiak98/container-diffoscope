@@ -1,7 +1,7 @@
 import pytest
 import polars as pl
 import shutil
-from filesystem_comparison import load_list_to_dataframe
+from container_diffoscope.main import load_list_to_dataframe
 
 
 @pytest.fixture(autouse=True)

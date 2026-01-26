@@ -1,5 +1,5 @@
 import polars as pl
-from filesystem_comparison import get_changed_files
+from container_diffoscope.comparator import _get_changed_files
 
 
 def test_basic_changed_files():
@@ -12,7 +12,7 @@ def test_basic_changed_files():
     )
 
     # Act
-    result = get_changed_files(df1, df2)
+    result = _get_changed_files(df1, df2)
 
     # Assert
     assert len(result) == 2
@@ -27,7 +27,7 @@ def test_no_changed_files():
     df2 = df1.clone()
 
     # Act
-    result = get_changed_files(df1, df2)
+    result = _get_changed_files(df1, df2)
 
     # Assert
     assert len(result) == 0
@@ -39,7 +39,7 @@ def test_empty_dataframes():
     df2 = pl.DataFrame({"hash": ["123"], "path": ["/bin/a"]})
 
     # Act
-    result = get_changed_files(df1, df2)
+    result = _get_changed_files(df1, df2)
 
     # Assert
     assert len(result) == 0
@@ -51,7 +51,7 @@ def test_all_files_changed():
     df2 = pl.DataFrame({"hash": ["789", "012"], "path": ["/bin/a", "/bin/b"]})
 
     # Act
-    result = get_changed_files(df1, df2)
+    result = _get_changed_files(df1, df2)
 
     # Assert
     assert len(result) == 2
@@ -65,7 +65,7 @@ def test_different_paths():
     df2 = pl.DataFrame({"hash": ["123", "456"], "path": ["/bin/x", "/bin/y"]})
 
     # Act
-    result = get_changed_files(df1, df2)
+    result = _get_changed_files(df1, df2)
 
     # Assert
     assert len(result) == 0

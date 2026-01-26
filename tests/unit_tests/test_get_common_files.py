@@ -1,5 +1,5 @@
 import polars as pl
-from filesystem_comparison import get_common_files
+from container_diffoscope.comparator import _get_common_files
 
 
 def test_basic_common_files():
@@ -12,7 +12,7 @@ def test_basic_common_files():
     )
 
     # Act
-    result = get_common_files(df1, df2)
+    result = _get_common_files(df1, df2)
 
     # Assert
     assert len(result) == 2
@@ -26,7 +26,7 @@ def test_no_common_files():
     df2 = pl.DataFrame({"hash": ["789", "012"], "path": ["/bin/c", "/bin/d"]})
 
     # Act
-    result = get_common_files(df1, df2)
+    result = _get_common_files(df1, df2)
 
     # Assert
     assert len(result) == 0
@@ -38,7 +38,7 @@ def test_empty_dataframes():
     df2 = pl.DataFrame({"hash": ["123"], "path": ["/bin/a"]})
 
     # Act
-    result = get_common_files(df1, df2)
+    result = _get_common_files(df1, df2)
 
     # Assert
     assert len(result) == 0
@@ -50,7 +50,7 @@ def test_all_files_common():
     df2 = df1.clone()
 
     # Act
-    result = get_common_files(df1, df2)
+    result = _get_common_files(df1, df2)
 
     # Assert
     assert len(result) == 2
