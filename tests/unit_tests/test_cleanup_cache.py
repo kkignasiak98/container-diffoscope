@@ -1,6 +1,6 @@
 import os
 import pytest
-from filesystem_comparison import cleanup_cache
+from container_diffoscope.main import cleanup_cache
 
 
 @pytest.fixture

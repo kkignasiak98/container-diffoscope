@@ -1,5 +1,5 @@
 import polars as pl
-from filesystem_comparison import get_changed_files
+from container_diffoscope.main import get_changed_files
 
 
 def test_basic_changed_files():

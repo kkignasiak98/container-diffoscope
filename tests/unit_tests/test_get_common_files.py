@@ -1,5 +1,5 @@
 import polars as pl
-from filesystem_comparison import get_common_files
+from container_diffoscope.main import get_common_files
 
 
 def test_basic_common_files():

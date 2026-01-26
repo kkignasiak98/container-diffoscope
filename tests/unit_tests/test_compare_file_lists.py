@@ -1,5 +1,5 @@
 import polars as pl
-from filesystem_comparison import compare_file_lists
+from container_diffoscope.main import compare_file_lists
 
 
 def test_compare_file_lists_normal_case():

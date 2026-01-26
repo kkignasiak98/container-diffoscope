@@ -1,5 +1,5 @@
 import polars as pl
-from filesystem_comparison import filter_files
+from container_diffoscope.main import filter_files
 
 
 def test_basic_filter():
