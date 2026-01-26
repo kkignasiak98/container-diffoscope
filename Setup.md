@@ -22,36 +22,17 @@ There are **three ways** to set up the development environment for Container Dif
 
 ## ☁️ Option 1: Cloud IDE (Easiest)
 
-Use a cloud-based development environment that supports Dev Containers. **Zero local setup required!**
+Simply open the repository in any online IDE that supports Dev Containers. **Zero local setup required!**
 
-### GitHub Codespaces
-
-1. Navigate to the repository on GitHub
-2. Click the green **"Code"** button
-3. Select the **"Codespaces"** tab
-4. Click **"Create codespace on initial_version"**
-
-```
-🌐 GitHub will automatically:
-   ├── Create a cloud VM
-   ├── Build the dev container
-   ├── Install all dependencies
-   └── Open VS Code in your browser
-```
-
-> ⏱️ First launch takes ~3-5 minutes. Subsequent launches are instant.
-
-### Other Supported Platforms
-
-These platforms also support Dev Containers:
+### Supported Platforms
 
 | Platform | Link |
 |----------|------|
-| **Gitpod** | [gitpod.io](https://gitpod.io) |
+| **GitHub Codespaces** | [github.com/features/codespaces](https://github.com/features/codespaces) |
+| **Ona (previously Gitpod)** | [https://ona.com/](https://ona.com/) |
 | **CodeSandbox** | [codesandbox.io](https://codesandbox.io) |
-| **DevPod** | [devpod.sh](https://devpod.sh) |
 
-Simply open the repository URL in any of these platforms.
+> ⏱️ First launch takes ~3-5 minutes while the container builds. Subsequent launches are instant.
 
 ---
 
