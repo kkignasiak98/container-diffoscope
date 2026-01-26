@@ -54,13 +54,10 @@
 
 ### 🛠️ Smart Features
 
-- ⚡ **Configurable Thresholds**
-  > Smart limits for detailed vs. summary comparisons
-
 - 🧹 **Automatic Cleanup**
   > Removes temporary files after analysis
 
-- 🎨 **Beautiful Output**
+- 🎨 **Clean Output**
   > Clean, readable markdown reports
 
 </td>
@@ -121,44 +118,7 @@ python -m container_diffoscope ubuntu:20.04 ubuntu:22.04 --output-dir comparison
 
 ---
 
-## ⚙️ Configuration
 
-| Variable | Value | Description |
-|----------|:-----:|-------------|
-| `NEW_FILE_PRINT_THRESHOLD` | `20` | Maximum new files to list individually |
-| `UPDATED_FILE_THRESHOLD` | `15` | Maximum changed files to analyze in detail |
-
----
-
-## 📦 Dependencies
-
-<table>
-<tr>
-<td>
-
-**🐳 System**
-- Docker
-- tar
-- sha256sum
-
-</td>
-<td>
-
-**🐍 Python**
-- polars
-- typer
-
-</td>
-<td>
-
-**🔧 Tools**
-- diffoscope
-
-</td>
-</tr>
-</table>
-
----
 
 ## 🔄 How It Works
 
@@ -208,17 +168,5 @@ cache/
 ### 🌈 Color Palette
 
 *Inspired by [Catppuccin Macchiato](https://github.com/catppuccin/catppuccin)*
-
-| | Rosewater | Flamingo | Pink | Mauve | Red | Maroon | Peach | Yellow |
-|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
-| | `#f4dbd6` | `#f0c6c6` | `#f5bde6` | `#c6a0f6` | `#ed8796` | `#ee99a0` | `#f5a97f` | `#eed49f` |
-
-| | Green | Teal | Sky | Sapphire | Blue | Lavender | Text | Base |
-|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
-| | `#a6da95` | `#8bd5ca` | `#91d7e3` | `#7dc4e4` | `#8aadf4` | `#b7bdf8` | `#cad3f5` | `#24273a` |
-
----
-
-Made with 💜 and lots of ☕
 
 </div>
