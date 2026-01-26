@@ -38,64 +38,35 @@ Simply open the repository in any online IDE that supports Dev Containers. **Zer
 
 ## 🐳 Option 2: Local with Dev Containers (Recommended)
 
-Run the containerized development environment on your local machine.
+Run the containerized development environment on your local machine using any IDE that supports Dev Containers.
 
-### Prerequisites
+### Option A: IDE with Native Dev Container Support
 
-| Tool | Purpose | Installation |
-|------|---------|--------------|
-| **Docker Desktop** | Container runtime | [Get Docker](https://docs.docker.com/get-docker/) |
-| **VS Code** | Editor | [Download](https://code.visualstudio.com/) |
-| **Dev Containers Extension** | Container integration | [Install](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers) |
+Use any IDE with built-in Dev Container support:
 
-### Setup Steps
+| IDE | Dev Containers Extension |
+|-----|-------------------------|
+| **VS Code** |[Dev Containers extension |
+| **JetBrains IDEs** | Built-in support in Gateway |
+| **Cursor** | Dev Containers extension |
 
-#### 1️⃣ Clone the repository
+Simply open the cloned repository and your IDE will prompt to reopen in the container.
+
+### Option B: DevPod for Any IDE
+
+Use [DevPod](https://devpod.sh) to run Dev Containers with any IDE or editor:
+
+### Option C: Build Docker Image Directly
+
+You can also build and use the Docker image directly:
 
 ```bash
-git clone https://github.com/kkignasiak98/container-diffoscope.git
-cd container-diffoscope
+docker build -t container-diffoscope-dev .
+
+# Run interactively
+docker run -it -v $(pwd):/workspace container-diffoscope-dev
 ```
 
-#### 2️⃣ Open in VS Code
-
-```bash
-code .
-```
-
-#### 3️⃣ Reopen in Container
-
-VS Code will detect the Dev Container configuration and show a prompt:
-
-> 📦 **"Folder contains a Dev Container configuration file. Reopen folder to develop in a container?"**
-
-Click **"Reopen in Container"**
-
-Alternatively: `Ctrl+Shift+P` → `Dev Containers: Reopen in Container`
-
-#### 4️⃣ Wait for build
-
-```
-🐳 Building container...
-   ├── 📦 Installing Nix
-   ├── 📋 Setting up Devbox
-   ├── 🐍 Installing Python 3.12
-   ├── 📚 Installing Poetry
-   └── ✅ Ready!
-```
-
-> ⏱️ First build takes ~5-10 minutes. Rebuilds are cached and much faster.
-
-### What You Get
-
-The container includes everything pre-configured:
-
-- ❄️ **Nix** - Reproducible package manager
-- 📋 **Devbox** - Nix made simple
-- 🐍 **Python 3.12** + Poetry
-- 🐳 **Docker CLI** (Docker-in-Docker)
-- 🔧 **Dev tools**: hadolint, ruff, pyright
-- 📝 **VS Code extensions** pre-installed
 
 ---
 
