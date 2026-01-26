@@ -6,8 +6,7 @@
     "zsh@5.9",
     "git-lfs@3.7.1",
     "hadolint@2.12.0",
-    "docker@29.1.3",
-    "docker-compose@5.0.1"
+    "docker@29.1.3"
   ],
   "shell": {
     "init_hook": [
@@ -19,8 +18,7 @@
       "type_check_python": "pyright --outputjson | tee diagnostics/type_validation_report.json",
       "sync_dependencies": "poetry install --with dev --sync",
       "build_package":     "poetry build",
-      "unit_tests":        "poetry run pytest tests/unit_tests -v",
-      "meta_tests":        "bash run_meta_test.sh '/workspaces/container-diffoscope/tests/meta_tests/filesystem_empty_file' " 
+      "unit_tests":        "poetry run pytest tests/unit_tests -v"
     }
   }
 }

@@ -4,7 +4,7 @@
 
 <img src="https://raw.githubusercontent.com/catppuccin/catppuccin/main/assets/palette/macchiato.png" width="600"/>
 
-### *Elegant Docker filesystem comparison ☕
+### Elegant Container filesystem comparison ☕
 
 [![Alpha](https://img.shields.io/badge/Status-Alpha-ed8796?style=for-the-badge)](https://github.com/kkignasiak98/container-diffoscope)
 [![Python](https://img.shields.io/badge/Python-3.12-a6da95?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
@@ -67,7 +67,7 @@ Container runtime
 
 **📦 Devcontainers**
 
-VS Code integration
+Devcontainers integration
 
 </td>
 <td align="center" width="25%">
@@ -106,8 +106,6 @@ Nix made easy
 <div align="center">
 
 *Styled with [Catppuccin](https://github.com/catppuccin/catppuccin) 🌈*
-
-Made with 💜 and lots of ☕
 
 </div>
 
