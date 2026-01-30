@@ -1,54 +1,6 @@
 {
   "lockfile_version": "1",
   "packages": {
-    "docker-compose@5.0.1": {
-      "last_modified": "2026-01-09T13:41:53Z",
-      "resolved": "github:NixOS/nixpkgs/5f02c91314c8ba4afe83b256b023756412218535#docker-compose",
-      "source": "devbox-search",
-      "version": "5.0.1",
-      "systems": {
-        "aarch64-darwin": {
-          "outputs": [
-            {
-              "name": "out",
-              "path": "/nix/store/fk0kyiq6c6fgshqqk02frr3fsq1mvmhn-docker-compose-5.0.1",
-              "default": true
-            }
-          ],
-          "store_path": "/nix/store/fk0kyiq6c6fgshqqk02frr3fsq1mvmhn-docker-compose-5.0.1"
-        },
-        "aarch64-linux": {
-          "outputs": [
-            {
-              "name": "out",
-              "path": "/nix/store/hpllsq86biyjdzaibs5r84ljr5rwh1rg-docker-compose-5.0.1",
-              "default": true
-            }
-          ],
-          "store_path": "/nix/store/hpllsq86biyjdzaibs5r84ljr5rwh1rg-docker-compose-5.0.1"
-        },
-        "x86_64-darwin": {
-          "outputs": [
-            {
-              "name": "out",
-              "path": "/nix/store/h6q0az722jg8skxw8c1k4scbpc1vxh91-docker-compose-5.0.1",
-              "default": true
-            }
-          ],
-          "store_path": "/nix/store/h6q0az722jg8skxw8c1k4scbpc1vxh91-docker-compose-5.0.1"
-        },
-        "x86_64-linux": {
-          "outputs": [
-            {
-              "name": "out",
-              "path": "/nix/store/ravddxz6p7hbxyc2n2m4ghpvcnbccbqb-docker-compose-5.0.1",
-              "default": true
-            }
-          ],
-          "store_path": "/nix/store/ravddxz6p7hbxyc2n2m4ghpvcnbccbqb-docker-compose-5.0.1"
-        }
-      }
-    },
     "docker@29.1.3": {
       "last_modified": "2026-01-09T13:41:53Z",
       "resolved": "github:NixOS/nixpkgs/5f02c91314c8ba4afe83b256b023756412218535#docker",

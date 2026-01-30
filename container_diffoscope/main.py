@@ -1,21 +1,22 @@
 
 """
-DockFS-Diff: Docker Filesystem Comparison Tool
+Container-Diffoscope: Docker Filesystem Comparison Tool
 
-For detailed documentation, see: source_code/docs/dockfs-diff.md
+For detailed documentation, see: source_code/docs.md
 """
 
 import polars as pl
 import atexit
 import shutil
 import typer
-from typing import Annotated
 from .extractor import *
 from .diffoscope_runner import *
 from .comparator import *
 
 NEW_FILE_PRINT_THRESHOLD = 20  # Number of files that can be different between the images and the list will be printed
 UPDATED_FILE_TRESHOLD = 15
+
+app = typer.Typer()
 
 
 def _analyze_changed_files(
@@ -113,12 +114,11 @@ def compare_filesystem(image_1: str, image_2: str, export_dir: str) -> None:
             print(f"  {row['path']}", flush=True)
 
 
+@app.command()
 def main(
-    image_1: str,
-    image_2: str,
-    output_dir: Annotated[
-        str, typer.Option(help="Output directory for comparison results")
-    ] = "temp_results",
+    image_1: str = typer.Argument(..., help="First Docker image to compare"),
+    image_2: str = typer.Argument(..., help="Second Docker image to compare"),
+    output_dir: str = typer.Option("temp_results", help="Output directory for comparison results"),
 ):
     """
     Compare two Docker images' filesystems and generate detailed comparisons of changed files.
@@ -127,5 +127,10 @@ def main(
     compare_filesystem(image_1, image_2, full_output_dir)
 
 
+def cli():
+    """Entry point for the CLI."""
+    app()
+
+
 if __name__ == "__main__":
-    typer.run(main)
+    cli()

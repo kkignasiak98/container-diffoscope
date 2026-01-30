@@ -7,11 +7,11 @@ readme = "README.md"
 packages = [{ include = "container_diffoscope" }]
 
 [tool.poetry.scripts]
-container-diffoscope = "container_diffoscope.main:main"
+container-diffoscope = "container_diffoscope.main:cli"
 
 [tool.poetry.dependencies]
 python = "^3.12"
-typer = "0.15.2"
+typer = ">=0.15.3"
 polars = "1.26.0"
 
 
