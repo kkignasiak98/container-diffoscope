@@ -1,0 +1,133 @@
+# https://taskfile.dev
+
+version: "3"
+
+vars:
+  DIAGNOSTICS_DIR: diagnostics
+  INTEGRATION_TESTS_DIR: tests/integration_tests
+
+tasks:
+  # ============================================================
+  # Python Development Tasks (imported from devbox.json)
+  # ============================================================
+
+  format:python:
+    desc: Format Python code using ruff
+    cmds:
+      - ruff format
+
+  lint:python:
+    desc: Lint Python code and output to diagnostics
+    cmds:
+      - mkdir -p {{.DIAGNOSTICS_DIR}}
+      - ruff check --output-file {{.DIAGNOSTICS_DIR}}/static_code_analysis.md
+
+  type-check:python:
+    desc: Run type checking with pyright
+    cmds:
+      - mkdir -p {{.DIAGNOSTICS_DIR}}
+      - pyright --outputjson | tee {{.DIAGNOSTICS_DIR}}/type_validation_report.json
+
+  sync-dependencies:
+    desc: Sync Poetry dependencies (including dev)
+    cmds:
+      - poetry install --with dev --sync
+
+  build-package:
+    desc: Build the Python package with Poetry
+    cmds:
+      - poetry build
+
+  unit-tests:
+    desc: Run unit tests with pytest
+    cmds:
+      - poetry run pytest tests/unit_tests -v
+
+  # ============================================================
+  # Integration Testing Tasks
+  # ============================================================
+
+  integration-tests:
+    desc: Run all integration tests (build images and compare with container-diffoscope)
+    cmds:
+      - task: integration-tests:empty-file
+      - task: integration-tests:empty-folder
+
+  integration-tests:empty-file:
+    desc: Integration test for empty_file scenario
+    dir: "{{.INTEGRATION_TESTS_DIR}}/empty_file"
+    cmds:
+      - task: _integration-test
+        vars:
+          TEST_DIR: "{{.INTEGRATION_TESTS_DIR}}/empty_file"
+          TEST_NAME: empty_file
+
+  integration-tests:empty-folder:
+    desc: Integration test for empty_folder scenario
+    dir: "{{.INTEGRATION_TESTS_DIR}}/empty_folder"
+    cmds:
+      - task: _integration-test
+        vars:
+          TEST_DIR: "{{.INTEGRATION_TESTS_DIR}}/empty_folder"
+          TEST_NAME: empty_folder
+
+  _integration-test:
+    internal: true
+    desc: Internal task to run a single integration test
+    vars:
+      OUTPUT_DIR: "{{.ROOT_DIR}}/{{.DIAGNOSTICS_DIR}}/integration_tests/{{.TEST_NAME}}"
+    dir: "{{.TEST_DIR}}"
+    cmds:
+      - echo "🐳 Building Docker images for {{.TEST_NAME}}..."
+      - docker compose build
+      - echo "📊 Comparing images with container-diffoscope..."
+      - mkdir -p "{{.OUTPUT_DIR}}"
+      - poetry run python -m container_diffoscope {{.TEST_NAME}}-base:latest {{.TEST_NAME}}-modified:latest --output-dir "{{.OUTPUT_DIR}}"
+      - echo "✅ Integration test {{.TEST_NAME}} completed"
+
+  integration-tests:build:
+    desc: Build all integration test Docker images
+    cmds:
+      - task: _docker-compose-build
+        vars:
+          TEST_DIR: "{{.INTEGRATION_TESTS_DIR}}/empty_file"
+      - task: _docker-compose-build
+        vars:
+          TEST_DIR: "{{.INTEGRATION_TESTS_DIR}}/empty_folder"
+
+  _docker-compose-build:
+    internal: true
+    dir: "{{.TEST_DIR}}"
+    cmds:
+      - docker compose build
+
+  integration-tests:clean:
+    desc: Clean up integration test Docker images
+    cmds:
+      - docker rmi empty_file-base empty_file-modified empty_folder-base empty_folder-modified 2>/dev/null || true
+
+  # ============================================================
+  # Combined Tasks
+  # ============================================================
+
+  test:
+    desc: Run all tests (unit and integration)
+    cmds:
+      - task: unit-tests
+      - task: integration-tests
+
+  ci:
+    desc: Run full CI pipeline (lint, type-check, tests)
+    cmds:
+      - task: lint:python
+      - task: type-check:python
+      - task: unit-tests
+      - task: integration-tests
+
+  clean:
+    desc: Clean all generated artifacts
+    cmds:
+      - rm -rf {{.DIAGNOSTICS_DIR}}
+      - rm -rf dist
+      - rm -rf cache
+      - task: integration-tests:clean
