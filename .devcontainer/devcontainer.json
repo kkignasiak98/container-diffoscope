@@ -29,7 +29,9 @@
 			// Set *default* container specific settings.json values on container create.
 			"settings": {},
 			"extensions": [
-				"golang.go",
+				"ms-toolsai.jupyter",
+        		"ms-python.python",
+				"charliermarsh.ruff",
 				"aaron-bond.better-comments",
 				"tamasfe.even-better-toml",
 				"jnoortheen.nix-ide",
