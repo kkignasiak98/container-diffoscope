@@ -82,7 +82,9 @@ tasks:
       - docker compose build
       - echo "📊 Comparing images with container-diffoscope..."
       - mkdir -p "{{.OUTPUT_DIR}}"
-      - poetry run python -m container_diffoscope {{.TEST_NAME}}-base:latest {{.TEST_NAME}}-modified:latest --output-dir "{{.OUTPUT_DIR}}"
+      - container-diffoscope {{.TEST_NAME}}-base:latest {{.TEST_NAME}}-modified:latest --output-dir "{{.OUTPUT_DIR}}"
+      - echo "🧹 Cleaning up Docker images for {{.TEST_NAME}}..."
+      - docker rmi {{.TEST_NAME}}-base:latest {{.TEST_NAME}}-modified:latest 2>/dev/null || true
       - echo "✅ Integration test {{.TEST_NAME}} completed"
 
   integration-tests:build:
