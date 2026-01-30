@@ -8,8 +8,10 @@
 	},
 	
   "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {
+      "version": "27.5.1"
+    }
   },
-
 	
 	"postCreateCommand":  ". /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh",
 
@@ -27,10 +29,8 @@
 			// Set *default* container specific settings.json values on container create.
 			"settings": {},
 			"extensions": [
-				"ms-toolsai.jupyter",
-				"ms-python.python",
+				"golang.go",
 				"aaron-bond.better-comments",
-				"charliermarsh.ruff",
 				"tamasfe.even-better-toml",
 				"jnoortheen.nix-ide",
 				"ms-azuretools.vscode-docker"
