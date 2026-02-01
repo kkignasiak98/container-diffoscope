@@ -3,17 +3,17 @@
   "packages": [
     "python@3.12.8",
     "poetry@1.8.4",
-    "zsh@5.9",
     "git-lfs@3.7.1",
     "hadolint@2.12.0",
     "docker@29.1.3",
-    "go-task@3.45.5"
+    "go-task@3.45.5",
+    "diffoscope@283"
   ],
   "shell": {
     "init_hook": [
-      "exec zsh"
+      "poetry install --sync",
+      "poetry shell"
     ],
-    "scripts": {
-    }
+    "scripts": {}
   }
 }

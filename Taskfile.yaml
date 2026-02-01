@@ -52,6 +52,7 @@ tasks:
     cmds:
       - task: integration-tests:empty-file
       - task: integration-tests:empty-folder
+      - task: integration-tests:modified-file
 
   integration-tests:empty-file:
     desc: Integration test for empty_file scenario
@@ -70,6 +71,15 @@ tasks:
         vars:
           TEST_DIR: "{{.INTEGRATION_TESTS_DIR}}/empty_folder"
           TEST_NAME: empty_folder
+
+  integration-tests:modified-file:
+    desc: Integration test for modified_file scenario
+    dir: "{{.INTEGRATION_TESTS_DIR}}/modified_file"
+    cmds:
+      - task: _integration-test
+        vars:
+          TEST_DIR: "{{.INTEGRATION_TESTS_DIR}}/modified_file"
+          TEST_NAME: modified_file
 
   _integration-test:
     internal: true
@@ -96,6 +106,9 @@ tasks:
       - task: _docker-compose-build
         vars:
           TEST_DIR: "{{.INTEGRATION_TESTS_DIR}}/empty_folder"
+      - task: _docker-compose-build
+        vars:
+          TEST_DIR: "{{.INTEGRATION_TESTS_DIR}}/modified_file"
 
   _docker-compose-build:
     internal: true
@@ -106,7 +119,7 @@ tasks:
   integration-tests:clean:
     desc: Clean up integration test Docker images
     cmds:
-      - docker rmi empty_file-base empty_file-modified empty_folder-base empty_folder-modified 2>/dev/null || true
+      - docker rmi empty_file-base empty_file-modified empty_folder-base empty_folder-modified modified_file-base modified_file-modified 2>/dev/null || true
 
   # ============================================================
   # Combined Tasks
