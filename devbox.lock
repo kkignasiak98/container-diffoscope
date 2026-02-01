@@ -1,6 +1,90 @@
 {
   "lockfile_version": "1",
   "packages": {
+    "diffoscope@283": {
+      "last_modified": "2024-12-13T21:43:23Z",
+      "resolved": "github:NixOS/nixpkgs/71a6392e367b08525ee710a93af2e80083b5b3e2#diffoscope",
+      "source": "devbox-search",
+      "version": "283",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/7jvz1y79rbp1zxvr7481jikhyadwqnxp-diffoscope-283",
+              "default": true
+            },
+            {
+              "name": "man",
+              "path": "/nix/store/maj9l4k84aflcfivardxihmnhnq6k564-diffoscope-283-man",
+              "default": true
+            },
+            {
+              "name": "dist",
+              "path": "/nix/store/kgr97myl309zijl5wk2cy9ncxhxmmisl-diffoscope-283-dist"
+            }
+          ],
+          "store_path": "/nix/store/7jvz1y79rbp1zxvr7481jikhyadwqnxp-diffoscope-283"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/g7rm7pilkij4mc2iv0ia8mn2bk686n7r-diffoscope-283",
+              "default": true
+            },
+            {
+              "name": "man",
+              "path": "/nix/store/p4h3pnjgyf2chlwhc6whf73dr0jk387j-diffoscope-283-man",
+              "default": true
+            },
+            {
+              "name": "dist",
+              "path": "/nix/store/4kiv4336i2c9p6jddqa1dkbgp2iqz9f1-diffoscope-283-dist"
+            }
+          ],
+          "store_path": "/nix/store/g7rm7pilkij4mc2iv0ia8mn2bk686n7r-diffoscope-283"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/lz56044j09vzzfiwwbiyismsvdbhsbx0-diffoscope-283",
+              "default": true
+            },
+            {
+              "name": "man",
+              "path": "/nix/store/cdfg1zg761mc7glr18zpwxgykwhzf0y0-diffoscope-283-man",
+              "default": true
+            },
+            {
+              "name": "dist",
+              "path": "/nix/store/3h2p6389nr2awj8ym9cx6fk16gkjb1qd-diffoscope-283-dist"
+            }
+          ],
+          "store_path": "/nix/store/lz56044j09vzzfiwwbiyismsvdbhsbx0-diffoscope-283"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/3j178v3zzbjbsz2jvzsn2yl05i35iwm5-diffoscope-283",
+              "default": true
+            },
+            {
+              "name": "man",
+              "path": "/nix/store/i96j84k2xg9k4vj4gvzcq7k5d38xxm8z-diffoscope-283-man",
+              "default": true
+            },
+            {
+              "name": "dist",
+              "path": "/nix/store/f0fwwd61rs3x8mmpvkzq7scznq2hckld-diffoscope-283-dist"
+            }
+          ],
+          "store_path": "/nix/store/3j178v3zzbjbsz2jvzsn2yl05i35iwm5-diffoscope-283"
+        }
+      }
+    },
     "docker@29.1.3": {
       "last_modified": "2026-01-09T13:41:53Z",
       "resolved": "github:NixOS/nixpkgs/5f02c91314c8ba4afe83b256b023756412218535#docker",
