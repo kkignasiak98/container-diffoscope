@@ -36,7 +36,7 @@ Simply open the repository in any online IDE that supports Dev Containers. **Zer
 
 ---
 
-## 🐳 Option 2: Local with Dev Containers (Recommended)
+## 🐳 Option 2: Local with Dev Containers
 
 Run the containerized development environment on your local machine using any IDE that supports Dev Containers.
 
@@ -65,6 +65,12 @@ docker build -t container-diffoscope-dev .
 
 # Run interactively
 docker run -it -v $(pwd):/workspace container-diffoscope-dev
+```
+
+If you prefer to use podman run:
+
+```bash
+podman build--format docker --network=host -t container-diffoscope-dev .
 ```
 
 
