@@ -1,0 +1,40 @@
+name: Integration Tests (PR Comment)
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: read
+
+jobs:
+  run-integration-tests:
+    if: |
+      github.event.issue.pull_request &&
+      contains(github.event.comment.body, '/run-integration-tests')
+    runs-on: ubuntu-22.04
+    steps:
+      - name: React to comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.reactions.createForIssueComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: context.payload.comment.id,
+              content: '+1'
+            });
+
+      - name: Checkout PR
+        uses: actions/checkout@v6
+        with:
+          ref: refs/pull/${{ github.event.issue.number }}/head
+
+      - name: Install devbox
+        uses: jetify-com/devbox-install-action@v0.15.0
+
+      - name: Sync dependencies
+        run: devbox run -- task sync-dependencies
+
+      - name: Run integration tests
+        run: devbox run -- task integration-tests
