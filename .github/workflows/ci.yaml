@@ -25,10 +25,10 @@ jobs:
         run: devbox run -- task sync-dependencies
       
       - name: lint
-        run: devbox run -- poetry run ruff check
+        run: devbox run -- task lint:python
 
       - name: type_check
-        run: devbox run -- poetry run pyright
+        run: devbox run -- type-check:python
 
       - name: build_package
         run: devbox run -- task build-package
