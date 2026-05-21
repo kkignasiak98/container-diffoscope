@@ -14,19 +14,19 @@ tasks:
   format:python:
     desc: Format Python code using ruff
     cmds:
-      - ruff format
+      - poetry run ruff format
 
   lint:python:
     desc: Lint Python code and output to diagnostics
     cmds:
       - mkdir -p {{.DIAGNOSTICS_DIR}}
-      - ruff check --output-file {{.DIAGNOSTICS_DIR}}/static_code_analysis.md
+      - poetry run ruff check --output-file {{.DIAGNOSTICS_DIR}}/static_code_analysis.md
 
   type-check:python:
     desc: Run type checking with pyright
     cmds:
       - mkdir -p {{.DIAGNOSTICS_DIR}}
-      - pyright --outputjson | tee {{.DIAGNOSTICS_DIR}}/type_validation_report.json
+      - poetry run pyright --outputjson | tee {{.DIAGNOSTICS_DIR}}/type_validation_report.json
 
   sync-dependencies:
     desc: Sync Poetry dependencies (including dev)
