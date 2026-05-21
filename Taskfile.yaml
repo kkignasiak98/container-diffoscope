@@ -3,7 +3,6 @@
 version: "3"
 
 vars:
-  DIAGNOSTICS_DIR: diagnostics
   INTEGRATION_TESTS_DIR: tests/integration_tests
 
 tasks:
@@ -19,14 +18,17 @@ tasks:
   lint:python:
     desc: Lint Python code and output to diagnostics
     cmds:
-      - mkdir -p {{.DIAGNOSTICS_DIR}}
-      - poetry run ruff check --output-file {{.DIAGNOSTICS_DIR}}/static_code_analysis.md
+      - poetry run ruff check
+
+  lint:docker:
+    desc: Lint dockerfiles
+    cmds:
+      - find . \( -name 'Dockerfile*' -o -name '*.Dockerfile' \) -print0 | xargs -0 hadolint --verbose
 
   type-check:python:
     desc: Run type checking with pyright
     cmds:
-      - mkdir -p {{.DIAGNOSTICS_DIR}}
-      - poetry run pyright --outputjson | tee {{.DIAGNOSTICS_DIR}}/type_validation_report.json
+      - poetry run pyright
 
   sync-dependencies:
     desc: Sync Poetry dependencies (including dev)
