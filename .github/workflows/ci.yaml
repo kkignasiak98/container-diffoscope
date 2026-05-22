@@ -30,7 +30,7 @@ jobs:
             devbox run -- task lint:docker
 
       - name: type_check
-        run: devbox run -- type-check:python
+        run: devbox run -- task type-check:python
 
       - name: build_package
         run: devbox run -- task build-package
