@@ -11,8 +11,6 @@
   ],
   "shell": {
     "init_hook": [
-      "poetry install --sync",
-      "poetry shell"
     ],
     "scripts": {}
   }

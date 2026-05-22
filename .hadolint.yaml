@@ -1,5 +1,8 @@
 trustedRegistries:
   - docker.io
+  - mcr.microsoft.com
 
 ignored:
   - DL3006
+  - DL3003
+  - DL4006

@@ -5,13 +5,14 @@ Container-Diffoscope: Docker Filesystem Comparison Tool
 For detailed documentation, see: source_code/docs.md
 """
 
+import os
 import polars as pl
 import atexit
 import shutil
 import typer
-from .extractor import *
-from .diffoscope_runner import *
-from .comparator import *
+from .extractor import export_filesystem_from_image, extract_file_from_tar, get_hash_file_list
+from .diffoscope_runner import get_detailed_file_comparison
+from .comparator import compare_file_lists, load_list_to_dataframe
 
 NEW_FILE_PRINT_THRESHOLD = 20  # Number of files that can be different between the images and the list will be printed
 UPDATED_FILE_TRESHOLD = 15

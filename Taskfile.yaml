@@ -3,7 +3,6 @@
 version: "3"
 
 vars:
-  DIAGNOSTICS_DIR: diagnostics
   INTEGRATION_TESTS_DIR: tests/integration_tests
 
 tasks:
@@ -14,19 +13,22 @@ tasks:
   format:python:
     desc: Format Python code using ruff
     cmds:
-      - ruff format
+      - poetry run ruff format
 
   lint:python:
     desc: Lint Python code and output to diagnostics
     cmds:
-      - mkdir -p {{.DIAGNOSTICS_DIR}}
-      - ruff check --output-file {{.DIAGNOSTICS_DIR}}/static_code_analysis.md
+      - poetry run ruff check
+
+  lint:docker:
+    desc: Lint dockerfiles
+    cmds:
+      - find . \( -name 'Dockerfile*' -o -name '*.Dockerfile' \) -print0 | xargs -0 hadolint --verbose
 
   type-check:python:
     desc: Run type checking with pyright
     cmds:
-      - mkdir -p {{.DIAGNOSTICS_DIR}}
-      - pyright --outputjson | tee {{.DIAGNOSTICS_DIR}}/type_validation_report.json
+      - poetry run pyright
 
   sync-dependencies:
     desc: Sync Poetry dependencies (including dev)
@@ -92,7 +94,7 @@ tasks:
       - docker compose build
       - echo "📊 Comparing images with container-diffoscope..."
       - mkdir -p "{{.OUTPUT_DIR}}"
-      - container-diffoscope {{.TEST_NAME}}-base:latest {{.TEST_NAME}}-modified:latest --output-dir "{{.OUTPUT_DIR}}"
+      - poetry --directory "{{.ROOT_DIR}}" run container-diffoscope {{.TEST_NAME}}-base:latest {{.TEST_NAME}}-modified:latest --output-dir "{{.OUTPUT_DIR}}"
       - echo "🧹 Cleaning up Docker images for {{.TEST_NAME}}..."
       - docker rmi {{.TEST_NAME}}-base:latest {{.TEST_NAME}}-modified:latest 2>/dev/null || true
       - echo "✅ Integration test {{.TEST_NAME}} completed"

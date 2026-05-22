@@ -1,0 +1,40 @@
+name: CI
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  test_and_build:
+    strategy:
+      fail-fast: true
+    runs-on: ubuntu-22.04
+    steps:
+      - name: checkout
+        uses: actions/checkout@v6
+
+      - name: install_devbox
+        uses: jetify-com/devbox-install-action@v0.15.0
+
+      - name: sync_dependencies
+        run: devbox run -- task sync-dependencies
+      
+      - name: lint
+        run: |
+            devbox run -- task lint:python
+            devbox run -- task lint:docker
+
+      - name: type_check
+        run: devbox run -- task type-check:python
+
+      - name: build_package
+        run: devbox run -- task build-package
+
+      - name: unit_tests
+        run: devbox run -- task unit-tests
+        
