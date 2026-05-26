@@ -124,6 +124,15 @@ tasks:
       - docker rmi empty_file-base empty_file-modified empty_folder-base empty_folder-modified modified_file-base modified_file-modified 2>/dev/null || true
 
   # ============================================================
+  # Nix Tasks
+  # ============================================================
+
+  nix:check:
+    desc: Check the Nix derivation can be instantiated without building
+    cmds:
+      - nix-instantiate -E 'with import <nixpkgs> {}; callPackage ./default.nix {}'
+
+  # ============================================================
   # Combined Tasks
   # ============================================================
 

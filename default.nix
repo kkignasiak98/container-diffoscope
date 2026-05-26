@@ -2,6 +2,7 @@
   lib,
   python3Packages,
   fetchFromGitHub,
+  fetchPypi,
   nix-update-script,
 }:
 
@@ -22,9 +23,26 @@ python3Packages.buildPythonApplication (finalAttrs: {
     python3Packages.poetry-core
   ];
 
-  dependencies = with python3Packages; [
-    polars
-    typer
+  dependencies = [
+    (python3Packages.polars.overridePythonAttrs (old: rec {
+      version = "1.26.0";
+      src = fetchPypi {
+        inherit (old) pname;
+        inherit version;
+        hash = "sha256-tUktOOXsKuaohTgzxaMVSRlKNhuQETT8Xy9XtJvVY+o=";
+      };
+    }))
+    (python3Packages.typer.overridePythonAttrs (old: rec {
+      version = "0.15.3";
+      src = fetchPypi {
+        inherit (old) pname;
+        inherit version;
+        hash = "sha256-gYhzYl0FaWU0ODFlZ4YYmffply8ubgwW2rYINFztcTw=";
+      };
+      propagatedBuildInputs = (old.propagatedBuildInputs or []) ++ [
+        python3Packages.typing-extensions
+      ];
+    }))
   ];
 
   pythonImportsCheck = [
@@ -37,7 +55,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     description = "Elegant Container filesystem comparison";
     homepage = "https://github.com/kkignasiak98/container-diffoscope";
     changelog = "https://github.com/kkignasiak98/container-diffoscope/releases/tag/${finalAttrs.src.tag}";
-    license = lib.licenses.mit; 
+    license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ ];
     mainProgram = "container-diffoscope";
   };

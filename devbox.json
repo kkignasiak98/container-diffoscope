@@ -7,11 +7,12 @@
     "hadolint@2.12.0",
     "docker@29.1.3",
     "go-task@3.45.5",
-    "diffoscope@283"
+    "diffoscope@283",
+    "nix-init@0.3.6",
+    "gh@2.92.0"
   ],
   "shell": {
-    "init_hook": [
-    ],
-    "scripts": {}
+    "init_hook": [],
+    "scripts":   {}
   }
 }
