@@ -148,3 +148,35 @@ tasks:
       - rm -rf dist
       - rm -rf cache
       - task: integration-tests:clean
+
+
+  # ============================================================
+  # Nix Tasks
+  # ============================================================
+
+  nix:check:
+    desc: Check the Nix derivation can be instantiated without building
+    cmds:
+      - nix-instantiate -E 'with import <nixpkgs> {}; callPackage ./default.nix {}'
+
+  nix:build:
+    desc: build nix package
+    cmds:
+     - nix-build -E 'with import <nixpkgs> {}; callPackage ./default.nix {}'
+  
+  nix:lint:
+    desc: Lint nix code
+    cmds:
+      - alejandra --check . 
+
+  nix:test_build:
+    desc: test build
+    cmds:
+      - ./result/bin/container-diffoscope --help
+
+  nix: install_and_check_package:
+    desc: install build package and test if it is available in nix profile
+    cmds:
+      - nix profile install ./result
+      - nix profile list | grep container-diffoscope
+      
