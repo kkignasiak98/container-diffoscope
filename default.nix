@@ -46,7 +46,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     homepage = "https://github.com/kkignasiak98/container-diffoscope";
     changelog = "https://github.com/kkignasiak98/container-diffoscope/releases/tag/${finalAttrs.src.tag}";
     license = lib.licenses.mit; 
-    maintainers = with lib.maintainers; [kkignasiak98];
+    maintainers = with lib.maintainers; [kkignasiak98]; #there will be more in the future!
     mainProgram = "container-diffoscope";
   };
 })

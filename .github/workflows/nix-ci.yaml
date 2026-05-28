@@ -1,0 +1,35 @@
+name: Nix CI
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'default.nix'
+  push:
+    branches: [main]
+    paths:
+      - 'default.nix'
+
+jobs:
+  nix-build:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+
+      - name: Install Task
+        uses: arduino/setup-task@v2
+
+      - name: Check build derivation
+        run: task nix:check
+
+      - name: Build package
+        run: task nix:build
+
+      - name: Test build
+        run: task nix:test_build
+
+      - name: Install and check package
+        run: task nix:install_and_check_package
