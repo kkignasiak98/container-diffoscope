@@ -174,7 +174,7 @@ tasks:
     cmds:
       - ./result/bin/container-diffoscope --help
 
-  nix: install_and_check_package:
+  nix:install_and_check_package:
     desc: install build package and test if it is available in nix profile
     cmds:
       - nix profile install ./result
