@@ -24,7 +24,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     python3Packages.pythonRelaxDepsHook
   ];
 
-  pythonRelaxDeps = [ "polars" ];
+  pythonRelaxDeps = true;
 
   dependencies = with python3Packages; [
     polars
@@ -46,7 +46,7 @@ python3Packages.buildPythonApplication (finalAttrs: {
     homepage = "https://github.com/kkignasiak98/container-diffoscope";
     changelog = "https://github.com/kkignasiak98/container-diffoscope/releases/tag/${finalAttrs.src.tag}";
     license = lib.licenses.mit; 
-    maintainers = with lib.maintainers; [ ];
+    maintainers = with lib.maintainers; [kkignasiak98];
     mainProgram = "container-diffoscope";
   };
 })
