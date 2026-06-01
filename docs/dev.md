@@ -137,31 +137,84 @@ python --version  # Should show Python 3.12.x
 uv run python -m container_diffoscope --help
 ```
 
-## 🎯 Available Scripts
+## 🎯 Available Tasks
 
-Once your environment is set up, use these Devbox scripts:
+Once your environment is set up, use [Task](https://taskfile.dev) to run common development commands:
 
 ```bash
-# 📦 Sync all dependencies
-devbox run sync_dependencies
+# List all available tasks
+task --list
+```
 
-# 🧪 Run unit tests
-devbox run unit_tests
+### Python Tasks
 
-# 🧪 Run meta tests
-devbox run meta_tests
+```bash
+# 📦 Sync dependencies with uv
+task python:sync-dependencies
 
-# 🎨 Format Python code
-devbox run format_python
+# 🎨 Format Python code using ruff
+task python:format
 
 # 🔍 Lint Python code
-devbox run lint_python
+task python:lint
 
-# 📊 Type check with Pyright
-devbox run type_check_python
+# 📊 Type check with pyright
+task python:type-check
 
-# 📦 Build the package
-devbox run build_package
+# 🧪 Run unit tests
+task python:unit-tests
+
+# 📦 Build the Python package
+task python:build-package
+```
+
+### Testing Tasks
+
+```bash
+# 🧪 Run all tests (unit and integration)
+task test
+
+# 🧪 Run all integration tests
+task integration-tests:all
+
+# 🧪 Run specific integration test
+task integration-tests:empty-file
+task integration-tests:empty-folder
+task integration-tests:modified-file
+```
+
+### Linting Tasks
+
+```bash
+# 🐳 Lint Dockerfiles
+task linters:docker
+```
+
+### Nix Tasks
+
+```bash
+# ❄️ Check Nix derivation
+task nix:check
+
+# ❄️ Build Nix package
+task nix:build
+
+# ❄️ Lint Nix code
+task nix:lint
+
+# ❄️ Build and test Nix flake
+task nix:build-flake
+task nix:test-run-flake
+```
+
+### Combined Tasks
+
+```bash
+# 🚀 Run full CI pipeline (lint, type-check, tests)
+task ci
+
+# 🧹 Clean all generated artifacts
+task clean
 ```
 
 ---
