@@ -13,12 +13,12 @@ tasks:
   format:python:
     desc: Format Python code using ruff
     cmds:
-      - poetry run ruff format
+      - uv run ruff format
 
   lint:python:
     desc: Lint Python code and output to diagnostics
     cmds:
-      - poetry run ruff check
+      - uv run ruff check
 
   lint:docker:
     desc: Lint dockerfiles
@@ -28,22 +28,22 @@ tasks:
   type-check:python:
     desc: Run type checking with pyright
     cmds:
-      - poetry run pyright
+      - uv run pyright
 
   sync-dependencies:
-    desc: Sync Poetry dependencies (including dev)
+    desc: Sync dependencies with uv
     cmds:
-      - poetry install --with dev --sync
+      - uv sync
 
   build-package:
-    desc: Build the Python package with Poetry
+    desc: Build the Python package with uv
     cmds:
-      - poetry build
+      - uv build
 
   unit-tests:
     desc: Run unit tests with pytest
     cmds:
-      - poetry run pytest tests/unit_tests -v
+      - uv run pytest tests/unit_tests -v
 
   # ============================================================
   # Integration Testing Tasks
@@ -94,7 +94,7 @@ tasks:
       - docker compose build
       - echo "📊 Comparing images with container-diffoscope..."
       - mkdir -p "{{.OUTPUT_DIR}}"
-      - poetry --directory "{{.ROOT_DIR}}" run container-diffoscope {{.TEST_NAME}}-base:latest {{.TEST_NAME}}-modified:latest --output-dir "{{.OUTPUT_DIR}}"
+      - uv run --directory "{{.ROOT_DIR}}" container-diffoscope {{.TEST_NAME}}-base:latest {{.TEST_NAME}}-modified:latest --output-dir "{{.OUTPUT_DIR}}"
       - echo "🧹 Cleaning up Docker images for {{.TEST_NAME}}..."
       - docker rmi {{.TEST_NAME}}-base:latest {{.TEST_NAME}}-modified:latest 2>/dev/null || true
       - echo "✅ Integration test {{.TEST_NAME}} completed"
