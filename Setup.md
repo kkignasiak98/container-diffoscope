@@ -127,14 +127,14 @@ This will:
 #### 4️⃣ Install Python dependencies
 
 ```bash
-poetry install
+uv sync
 ```
 
 #### 5️⃣ Verify installation
 
 ```bash
 python --version  # Should show Python 3.12.x
-poetry run python -m container_diffoscope --help
+uv run python -m container_diffoscope --help
 ```
 
 ## 🎯 Available Scripts
