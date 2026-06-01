@@ -29,7 +29,7 @@ jobs:
         run: task nix:build
 
       - name: Test build
-        run: task nix:test_build
+        run: task nix:test-build
 
       - name: Install and check package
-        run: task nix:install_and_check_package
+        run: task nix:install-and-check-package

@@ -19,10 +19,10 @@ jobs:
         uses: arduino/setup-task@v2
 
       - name: Check flake
-        run: task nix:check_flake
+        run: task nix:check-flake
 
       - name: Build package
-        run: task nix:build_flake
+        run: task nix:build-flake
 
       - name: Run and check package
-        run: task nix:test_run_flake
+        run: task nix:test-run-flake

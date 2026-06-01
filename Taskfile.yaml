@@ -2,127 +2,13 @@
 
 version: "3"
 
-vars:
-  INTEGRATION_TESTS_DIR: tests/integration_tests
+includes:
+  python: ./tasks/python.yaml
+  linters: ./tasks/lint.yaml
+  integration-tests: ./tasks/integration-tests.yaml
+  nix: ./tasks/nix.yaml
 
 tasks:
-  # ============================================================
-  # Python Development Tasks (imported from devbox.json)
-  # ============================================================
-
-  format:python:
-    desc: Format Python code using ruff
-    cmds:
-      - uv run ruff format
-
-  lint:python:
-    desc: Lint Python code and output to diagnostics
-    cmds:
-      - uv run ruff check
-
-  lint:docker:
-    desc: Lint dockerfiles
-    cmds:
-      - find . \( -name 'Dockerfile*' -o -name '*.Dockerfile' \) -print0 | xargs -0 hadolint --verbose
-
-  type-check:python:
-    desc: Run type checking with pyright
-    cmds:
-      - uv run pyright
-
-  sync-dependencies:
-    desc: Sync dependencies with uv
-    cmds:
-      - uv sync
-
-  build-package:
-    desc: Build the Python package with uv
-    cmds:
-      - uv build
-
-  unit-tests:
-    desc: Run unit tests with pytest
-    cmds:
-      - uv run pytest tests/unit_tests -v
-
-  # ============================================================
-  # Integration Testing Tasks
-  # ============================================================
-
-  integration-tests:
-    desc: Run all integration tests (build images and compare with container-diffoscope)
-    cmds:
-      - task: integration-tests:empty-file
-      - task: integration-tests:empty-folder
-      - task: integration-tests:modified-file
-
-  integration-tests:empty-file:
-    desc: Integration test for empty_file scenario
-    dir: "{{.INTEGRATION_TESTS_DIR}}/empty_file"
-    cmds:
-      - task: _integration-test
-        vars:
-          TEST_DIR: "{{.INTEGRATION_TESTS_DIR}}/empty_file"
-          TEST_NAME: empty_file
-
-  integration-tests:empty-folder:
-    desc: Integration test for empty_folder scenario
-    dir: "{{.INTEGRATION_TESTS_DIR}}/empty_folder"
-    cmds:
-      - task: _integration-test
-        vars:
-          TEST_DIR: "{{.INTEGRATION_TESTS_DIR}}/empty_folder"
-          TEST_NAME: empty_folder
-
-  integration-tests:modified-file:
-    desc: Integration test for modified_file scenario
-    dir: "{{.INTEGRATION_TESTS_DIR}}/modified_file"
-    cmds:
-      - task: _integration-test
-        vars:
-          TEST_DIR: "{{.INTEGRATION_TESTS_DIR}}/modified_file"
-          TEST_NAME: modified_file
-
-  _integration-test:
-    internal: true
-    desc: Internal task to run a single integration test
-    vars:
-      OUTPUT_DIR: "{{.ROOT_DIR}}/{{.DIAGNOSTICS_DIR}}/integration_tests/{{.TEST_NAME}}"
-    dir: "{{.TEST_DIR}}"
-    cmds:
-      - echo "🐳 Building Docker images for {{.TEST_NAME}}..."
-      - docker compose build
-      - echo "📊 Comparing images with container-diffoscope..."
-      - mkdir -p "{{.OUTPUT_DIR}}"
-      - uv run --directory "{{.ROOT_DIR}}" container-diffoscope {{.TEST_NAME}}-base:latest {{.TEST_NAME}}-modified:latest --output-dir "{{.OUTPUT_DIR}}"
-      - echo "🧹 Cleaning up Docker images for {{.TEST_NAME}}..."
-      - docker rmi {{.TEST_NAME}}-base:latest {{.TEST_NAME}}-modified:latest 2>/dev/null || true
-      - echo "✅ Integration test {{.TEST_NAME}} completed"
-
-  integration-tests:build:
-    desc: Build all integration test Docker images
-    cmds:
-      - task: _docker-compose-build
-        vars:
-          TEST_DIR: "{{.INTEGRATION_TESTS_DIR}}/empty_file"
-      - task: _docker-compose-build
-        vars:
-          TEST_DIR: "{{.INTEGRATION_TESTS_DIR}}/empty_folder"
-      - task: _docker-compose-build
-        vars:
-          TEST_DIR: "{{.INTEGRATION_TESTS_DIR}}/modified_file"
-
-  _docker-compose-build:
-    internal: true
-    dir: "{{.TEST_DIR}}"
-    cmds:
-      - docker compose build
-
-  integration-tests:clean:
-    desc: Clean up integration test Docker images
-    cmds:
-      - docker rmi empty_file-base empty_file-modified empty_folder-base empty_folder-modified modified_file-base modified_file-modified 2>/dev/null || true
-
   # ============================================================
   # Combined Tasks
   # ============================================================
@@ -130,16 +16,16 @@ tasks:
   test:
     desc: Run all tests (unit and integration)
     cmds:
-      - task: unit-tests
-      - task: integration-tests
+      - task: python:unit-tests
+      - task: integration-tests:all
 
   ci:
     desc: Run full CI pipeline (lint, type-check, tests)
     cmds:
-      - task: lint:python
-      - task: type-check:python
-      - task: unit-tests
-      - task: integration-tests
+      - task: python:lint
+      - task: python:type-check
+      - task: python:unit-tests
+      - task: integration-tests:all
 
   clean:
     desc: Clean all generated artifacts
@@ -148,50 +34,3 @@ tasks:
       - rm -rf dist
       - rm -rf cache
       - task: integration-tests:clean
-
-
-  # ============================================================
-  # Nix Tasks
-  # ============================================================
-
-  nix:check:
-    desc: Check the Nix derivation can be instantiated without building
-    cmds:
-      - nix-instantiate -E 'with import <nixpkgs> {}; callPackage ./default.nix {}'
-
-  nix:build:
-    desc: build nix package
-    cmds:
-     - nix-build -E 'with import <nixpkgs> {}; callPackage ./default.nix {}'
-  
-  nix:lint:
-    desc: Lint nix code
-    cmds:
-      - alejandra --check . 
-
-  nix:test_build:
-    desc: test build
-    cmds:
-      - ./result/bin/container-diffoscope --help
-
-  nix:install_and_check_package:
-    desc: install build package and test if it is available in nix profile
-    cmds:
-      - nix profile install ./result
-      - nix profile list | grep container-diffoscope
-
-  
-  nix:check_flake:
-  desc: Verify the correctness of Nix flakes
-  cmds:
-    - nix flake check --all-systems
-
-  nix:build_flake:
-  desc: build package defined in flake.nix
-  cmds:
-    - nix build
-  
-  nix:test_run_flake:
-  desc: test run Nix Flake package
-  cmds:
-    - nix run . -- --help

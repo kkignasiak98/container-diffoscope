@@ -58,7 +58,7 @@ jobs:
 
       - name: Build source and wheel distribution
         run: |
-          devbox run -- task build-package
+          devbox run -- task python:build-package
 
       - name: Upload artifacts
         uses: actions/upload-artifact@v4

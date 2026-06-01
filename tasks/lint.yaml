@@ -1,0 +1,10 @@
+# https://taskfile.dev
+# Linting Tasks
+
+version: "3"
+
+tasks:
+  docker:
+    desc: Lint dockerfiles
+    cmds:
+      - find . \( -name 'Dockerfile*' -o -name '*.Dockerfile' \) -print0 | xargs -0 hadolint --verbose
