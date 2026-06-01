@@ -1,0 +1,46 @@
+# https://taskfile.dev
+# Nix Tasks
+
+version: "3"
+
+tasks:
+  check:
+    desc: Check the Nix derivation can be instantiated without building
+    cmds:
+      - nix-instantiate -E 'with import <nixpkgs> {}; callPackage ./default.nix {}'
+
+  build:
+    desc: Build nix package
+    cmds:
+      - nix-build -E 'with import <nixpkgs> {}; callPackage ./default.nix {}'
+
+  lint:
+    desc: Lint nix code
+    cmds:
+      - alejandra --check .
+
+  test-build:
+    desc: Test build
+    cmds:
+      - ./result/bin/container-diffoscope --help
+
+  install-and-check-package:
+    desc: Install build package and test if it is available in nix profile
+    cmds:
+      - nix profile install ./result
+      - nix profile list | grep container-diffoscope
+
+  check-flake:
+    desc: Verify the correctness of Nix flakes
+    cmds:
+      - nix flake check --all-systems
+
+  build-flake:
+    desc: Build package defined in flake.nix
+    cmds:
+      - nix build
+
+  test-run-flake:
+    desc: Test run Nix Flake package
+    cmds:
+      - nix run . -- --help

@@ -1,0 +1,82 @@
+# https://taskfile.dev
+# Integration Testing Tasks
+
+version: "3"
+
+vars:
+  INTEGRATION_TESTS_DIR: tests/integration_tests
+
+tasks:
+  all:
+    desc: Run all integration tests (build images and compare with container-diffoscope)
+    cmds:
+      - task: empty-file
+      - task: empty-folder
+      - task: modified-file
+
+  empty-file:
+    desc: Integration test for empty_file scenario
+    dir: "{{.INTEGRATION_TESTS_DIR}}/empty_file"
+    cmds:
+      - task: _run
+        vars:
+          TEST_DIR: "{{.INTEGRATION_TESTS_DIR}}/empty_file"
+          TEST_NAME: empty_file
+
+  empty-folder:
+    desc: Integration test for empty_folder scenario
+    dir: "{{.INTEGRATION_TESTS_DIR}}/empty_folder"
+    cmds:
+      - task: _run
+        vars:
+          TEST_DIR: "{{.INTEGRATION_TESTS_DIR}}/empty_folder"
+          TEST_NAME: empty_folder
+
+  modified-file:
+    desc: Integration test for modified_file scenario
+    dir: "{{.INTEGRATION_TESTS_DIR}}/modified_file"
+    cmds:
+      - task: _run
+        vars:
+          TEST_DIR: "{{.INTEGRATION_TESTS_DIR}}/modified_file"
+          TEST_NAME: modified_file
+
+  _run:
+    internal: true
+    desc: Internal task to run a single integration test
+    vars:
+      OUTPUT_DIR: "{{.ROOT_DIR}}/{{.DIAGNOSTICS_DIR}}/integration_tests/{{.TEST_NAME}}"
+    dir: "{{.TEST_DIR}}"
+    cmds:
+      - echo "🐳 Building Docker images for {{.TEST_NAME}}..."
+      - docker compose build
+      - echo "📊 Comparing images with container-diffoscope..."
+      - mkdir -p "{{.OUTPUT_DIR}}"
+      - uv run --directory "{{.ROOT_DIR}}" container-diffoscope {{.TEST_NAME}}-base:latest {{.TEST_NAME}}-modified:latest --output-dir "{{.OUTPUT_DIR}}"
+      - echo "🧹 Cleaning up Docker images for {{.TEST_NAME}}..."
+      - docker rmi {{.TEST_NAME}}-base:latest {{.TEST_NAME}}-modified:latest 2>/dev/null || true
+      - echo "✅ Integration test {{.TEST_NAME}} completed"
+
+  build:
+    desc: Build all integration test Docker images
+    cmds:
+      - task: _docker-compose-build
+        vars:
+          TEST_DIR: "{{.INTEGRATION_TESTS_DIR}}/empty_file"
+      - task: _docker-compose-build
+        vars:
+          TEST_DIR: "{{.INTEGRATION_TESTS_DIR}}/empty_folder"
+      - task: _docker-compose-build
+        vars:
+          TEST_DIR: "{{.INTEGRATION_TESTS_DIR}}/modified_file"
+
+  _docker-compose-build:
+    internal: true
+    dir: "{{.TEST_DIR}}"
+    cmds:
+      - docker compose build
+
+  clean:
+    desc: Clean up integration test Docker images
+    cmds:
+      - docker rmi empty_file-base empty_file-modified empty_folder-base empty_folder-modified modified_file-base modified_file-modified 2>/dev/null || true
