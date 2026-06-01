@@ -1,0 +1,28 @@
+name: Nix CI
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - 'flake.nix'
+
+jobs:
+  nix-build:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+
+      - name: Install Task
+        uses: arduino/setup-task@v2
+
+      - name: Check flake
+        run: task nix:check_flake
+
+      - name: Build package
+        run: task nix:build_flake
+
+      - name: Run and check package
+        run: nix:test_run_flake
