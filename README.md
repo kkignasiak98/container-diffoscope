@@ -89,7 +89,7 @@ Nix made easy
 
 > The development environment is fully containerized and reproducible. No "works on my machine" problems!
 
-🔧 **[Setup Instructions →](docs/Setup.md)**
+🔧 **[Development Guide →](docs/dev.md)**
 
 ---
 
@@ -98,7 +98,7 @@ Nix made easy
 | Document | Description |
 |----------|-------------|
 | [docs/docs.md](docs/docs.md) | Full documentation with features, usage, and internals |
-| [docs/Setup.md](docs/Setup.md) | Development environment setup guide |
+| [docs/dev.md](docs/dev.md) | Development environment setup guide |
 | [docs/install.md](docs/install.md) | Installation guide (Homebrew, Nix Flake, Classic Nix) |
 | [tests/README.md](tests/README.md) | Testing documentation |
 
