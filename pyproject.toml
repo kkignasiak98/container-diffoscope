@@ -1,42 +1,29 @@
-[project]
+[tool.poetry]
 name = "container-diffoscope"
 version = "0.1.0"
 description = ""
-authors = [{ name = "Krzysztof Ignasiak", email = "141998545+kkignasiak98@users.noreply.github.com" }]
-requires-python = ">=3.12,<4"
+authors = ["Krzysztof Ignasiak <141998545+kkignasiak98@users.noreply.github.com>"]
 readme = "README.md"
-classifiers = [
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.12",
-    "Programming Language :: Python :: 3.13",
-    "Programming Language :: Python :: 3.14",
-]
-dependencies = [
-    "typer>=0.15.3",
-    "polars==1.26.0",
-]
+packages = [{ include = "container_diffoscope" }]
 
-[project.scripts]
+[tool.poetry.scripts]
 container-diffoscope = "container_diffoscope.main:cli"
 
-[dependency-groups]
-dev = [
-    "ruff==0.11.2",
-    "pytest==8.3.5",
-    "coverage==7.8.0",
-    "pyright==1.1.398",
-]
+[tool.poetry.dependencies]
+python = "^3.12"
+typer = ">=0.15.3"
+polars = "1.26.0"
 
-[tool.uv]
-default-groups = "all"
 
-[tool.uv.build-backend]
-module-name = ["container_diffoscope"]
-module-root = ""
+[tool.poetry.group.dev.dependencies]
+ruff = "0.11.2"
+pytest = "8.3.5"
+coverage = "7.8.0"
+pyright = "1.1.398"
 
 [build-system]
-requires = ["uv_build>=0.11.16,<0.12.0"]
-build-backend = "uv_build"
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
 
 
 [tool.coverage.run]
