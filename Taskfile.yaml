@@ -10,50 +10,6 @@ includes:
 
 tasks:
   # ============================================================
-  # Convenience Aliases (for backward compatibility)
-  # ============================================================
-
-  format:python:
-    desc: Format Python code using ruff
-    cmds:
-      - task: python:format
-
-  lint:python:
-    desc: Lint Python code and output to diagnostics
-    cmds:
-      - task: python:lint
-
-  lint:docker:
-    desc: Lint dockerfiles
-    cmds:
-      - task: linters:docker
-
-  type-check:python:
-    desc: Run type checking with pyright
-    cmds:
-      - task: python:type-check
-
-  sync-dependencies:
-    desc: Sync dependencies with uv
-    cmds:
-      - task: python:sync-dependencies
-
-  build-package:
-    desc: Build the Python package with uv
-    cmds:
-      - task: python:build-package
-
-  unit-tests:
-    desc: Run unit tests with pytest
-    cmds:
-      - task: python:unit-tests
-
-  integration-tests:
-    desc: Run all integration tests
-    cmds:
-      - task: integration-tests:all
-
-  # ============================================================
   # Combined Tasks
   # ============================================================
 

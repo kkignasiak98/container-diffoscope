@@ -44,7 +44,7 @@ jobs:
         uses: jetify-com/devbox-install-action@v0.15.0
 
       - name: Sync dependencies
-        run: devbox run -- task sync-dependencies
+        run: devbox run -- task python:sync-dependencies
 
       - name: Run integration tests
-        run: devbox run -- task integration-tests
+        run: devbox run -- task integration-tests:all
