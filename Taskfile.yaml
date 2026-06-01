@@ -179,4 +179,19 @@ tasks:
     cmds:
       - nix profile install ./result
       - nix profile list | grep container-diffoscope
-      
+
+  
+  nix:check_flake:
+  desc: Verify the correctness of Nix flakes
+  cmds:
+    - nix flake check --all-systems
+
+  nix:build_flake:
+  desc: build package defined in flake.nix
+  cmds:
+    - nix build
+  
+  nix:test_run_flake:
+  desc: test run Nix Flake package
+  cmds:
+    - nix run . -- --help
