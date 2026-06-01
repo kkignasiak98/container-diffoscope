@@ -34,7 +34,7 @@
 
 Perfect for auditing image changes, debugging build differences, or understanding what an update actually modifies.
 
-📖 **[Full Documentation →](docs.md)**
+📖 **[Full Documentation →](docs/docs.md)**
 
 ---
 
@@ -89,7 +89,7 @@ Nix made easy
 
 > The development environment is fully containerized and reproducible. No "works on my machine" problems!
 
-🔧 **[Setup Instructions →](Setup.md)**
+🔧 **[Setup Instructions →](docs/Setup.md)**
 
 ---
 
@@ -97,8 +97,9 @@ Nix made easy
 
 | Document | Description |
 |----------|-------------|
-| [docs.md](docs.md) | Full documentation with features, usage, and internals |
-| [Setup.md](Setup.md) | Development environment setup guide |
+| [docs/docs.md](docs/docs.md) | Full documentation with features, usage, and internals |
+| [docs/Setup.md](docs/Setup.md) | Development environment setup guide |
+| [docs/install.md](docs/install.md) | Installation guide (Homebrew, Nix Flake, Classic Nix) |
 | [tests/README.md](tests/README.md) | Testing documentation |
 
 ---
