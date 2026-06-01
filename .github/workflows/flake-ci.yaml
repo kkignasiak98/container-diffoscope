@@ -25,4 +25,4 @@ jobs:
         run: task nix:build_flake
 
       - name: Run and check package
-        run: nix:test_run_flake
+        run: task nix:test_run_flake
