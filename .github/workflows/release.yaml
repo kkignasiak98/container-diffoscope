@@ -49,12 +49,12 @@ jobs:
         uses: jetify-com/devbox-install-action@v0.15.0
 
 
-      - name: Set project version with Poetry
+      - name: Set project version
         run: |
-          devbox run -- poetry version ${{ needs.details.outputs.new_version }}
+          devbox run -- uv version ${{ needs.details.outputs.new_version }}
 
       - name: Install dependencies
-        run: devbox run -- poetry install --sync --no-interaction
+        run: devbox run -- uv sync --frozen
 
       - name: Build source and wheel distribution
         run: |
